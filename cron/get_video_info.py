@@ -1,7 +1,7 @@
 from apiclient.discovery import build
 import psycopg2
 
-YOUTUBE_API_KEY = 'AIzaSyBAeMYIqAd3ieYs3c33HRyPqcKI07F8HW0'
+YOUTUBE_API_KEY = 'XXXXXXXXXXXXX'
 
 VIDEO_CATEGORY_LIST = {
 	1:"Film & Animation",
