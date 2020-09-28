@@ -1,7 +1,7 @@
 from apiclient.discovery import build
 import psycopg2
 
-YOUTUBE_API_KEY = 'XXXXXXXXXXXXX'
+YOUTUBE_API_KEY = 'AIzaSyBAeMYIqAd3ieYs3c33HRyPqcKI07F8HW0'
 
 VIDEO_CATEGORY_LIST = {
 	1:"Film & Animation",
@@ -83,19 +83,19 @@ for video_category_id in VIDEO_CATEGORY_LIST.keys():  #VIDEO_CATEGORY_LIST.keys(
             url = 'https://www.youtube.com/watch?v=' + detail["id"]
             post_date = detail["snippet"]["publishedAt"]
 
-            print(f"INSERT INTO gravy (title, url, viewCount, likeCount, post_date) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}');")
+            # print(f"INSERT INTO gravy (title, url, viewCount, likeCount, post_date) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}');")
 
 
 
 
-# #DB格納
-# print(f"INSERT INTO gravy (title, url) VALUES ('{detail["snippet"]["title"]}', '{'https://www.youtube.com/watch?v=' + detail["id"]}');")
-# # conn = psycopg2.connect("dbname=youtube user=koba")
-# # cur = conn.cursor()
-# # cur.execute(f"INSERT INTO gravy (title, url) VALUES ('{video_title}', '{video_url}');")
-# # cur.execute("select * from gravy;")
-# # print(cur.fetchall())
-# # conn.commit()
-# # cur.close()
-# # print(conn.autocommit)
-# # conn.close()
+#DB格納
+print(f"INSERT INTO video (title, url, viewcount, likecount, post_date) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}');")
+conn = psycopg2.connect("dbname=gravy user=koba")
+cur = conn.cursor()
+cur.execute(f"INSERT INTO video (title, url, viewcount, likecount, post_date) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}');")
+cur.execute("select * from video;")
+print(cur.fetchall())
+conn.commit()
+cur.close()
+print(conn.autocommit)
+conn.close()
