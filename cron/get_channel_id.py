@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 
-YOUTUBE_API_KEY = 'xxx'
+YOUTUBE_API_KEY = 'AIzaSyCHYoFt8HPBPSFoj2g43oU8c5UsZS9Z7TQ'
 
 def youtube_id():
 
@@ -12,7 +12,7 @@ def youtube_id():
     order='viewCount',
     type='channel',
     #表示する数
-    maxResults=50
+    maxResults=3
     ).execute()
 
     search_rating = youtube.search().list(
@@ -21,19 +21,19 @@ def youtube_id():
     order='rating',
     type='channel',
     #表示する数
-    maxResults=50
+    maxResults=3
     ).execute()
     #出力
     #print(search_viewCount['items'])
     #print(search_rating['items'])
     #print(len(search_viewCount['items']))
-    videos = []
+    viewCount = []
 
     for result in search_viewCount['items']:
         #print(result)
         #print(result["id"])
         #print(result["id"]["channelId"])    
-        videos.append(result["id"]["channelId"])
+        viewCount.append(result["id"]["channelId"])
     
     rating = []
 
@@ -42,4 +42,4 @@ def youtube_id():
         #print(result["id"])
         #print(result["id"]["channelId"])    
         rating.append(result["id"]["channelId"])
-    return videos ,rating
+    return viewCount ,rating
