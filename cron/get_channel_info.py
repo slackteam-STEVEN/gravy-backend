@@ -62,11 +62,14 @@ conn = psycopg2.connect("dbname=gravy user=tamadashota")
 cur = conn.cursor()
 #ここにfor文
 for channel_viewCount_result in channel_viewCount:
-
     print(channel_viewCount_result)
-    
-
-cur.execute(f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')")
+    url = "https://www.youtube.com/channel/" + channel_viewCount_result[0]
+    title = channel_viewCount_result[1]
+    view_count = channel_viewCount_result[2]
+    subscribers = channel_viewCount_result[3]
+    post_date = channel_viewCount_result[4]
+    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')"
+    cur.execute(sql)
 
 conn.commit()
 cur.close()
