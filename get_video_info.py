@@ -1,7 +1,8 @@
-from apiclient.discovery import build
+# from apiclient.discovery import build
+from googleapiclient.discovery import build
 import psycopg2
 
-YOUTUBE_API_KEY = 'XXXXXXXX'
+YOUTUBE_API_KEY = 'XXXXXXXXX'
 
 VIDEO_CATEGORY_LIST = {
 	1:"Film & Animation",
@@ -38,10 +39,8 @@ def get_youtube_info(order,video_category_id):
     return search_response
 
 for video_category_id in VIDEO_CATEGORY_LIST.keys():  #VIDEO_CATEGORY_LIST.keys() key一覧のリストを返す処理(method)
-    print(VIDEO_CATEGORY_LIST[video_category_id]) #VIDEO_CATEGORY_LIST(辞書型)という変数に対してvideo_category_id(int型)という変数の値をkeyとして指定し対応するvalueを出力
 
     for order in ["viewCount", "rating"]:
-        print(order)
         search_response = get_youtube_info(order,video_category_id)
 
         for result in search_response['items']:
@@ -51,31 +50,22 @@ for video_category_id in VIDEO_CATEGORY_LIST.keys():  #VIDEO_CATEGORY_LIST.keys(
             videos_response = youtube.videos().list(part="id,snippet,statistics",id=result["id"]["videoId"]).execute()
 
             detail = videos_response.get("items", [])[0]
-            print(detail["statistics"])
 
             statistics = detail["statistics"]
             if "viewCount" in list(statistics.keys()):
                 viewCount = statistics["viewCount"]
-                print("viewCount_exist")
             else:
                 viewCount = "-1"
-                print("viewCount_not exist")
 
             if "likeCount" in list(statistics.keys()):
                 likeCount = statistics["likeCount"]
-                print("likeCount_exist")
             else:
                 likeCount = "-1"
-                print("likeCount_not exist")
-
-            print(list(statistics.keys()))
 
             title = detail["snippet"]["title"]
+            title = title.replace("'", "").replace('"', '')
             url = 'https://www.youtube.com/watch?v=' + detail["id"]
             post_date = detail["snippet"]["publishedAt"]
-
-            print(f"INSERT INTO video (title, url, view_count, raiting, post_date, category) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}', '{video_category_id}');")
-
 
 
 
