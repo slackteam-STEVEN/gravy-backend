@@ -45,18 +45,6 @@ for channel_id in rating:
 print(channel_rating)
 
 
-channel_rating
-channel_rating[0]
-channel_rating[0][1]
-
-
-
-url = "https://www.youtube.com/channel/" + channel_rating[0][0]
-title = channel_rating[0][1]
-view_count = channel_rating[0][2]
-subscribers = channel_rating[0][3]
-post_date = channel_rating[0][4]
-
 dbname = "gravy.db"
 conn = psycopg2.connect("dbname=gravy user=tamadashota")
 cur = conn.cursor()
@@ -70,7 +58,16 @@ for channel_viewCount_result in channel_viewCount:
     post_date = channel_viewCount_result[4]
     sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')"
     cur.execute(sql)
-
+    
+for channel_rating_result in channel_rating:
+    url = "https://www.youtube.com/channel/" + channel_viewCount_result[0]
+    title = channel_viewCount_result[1]
+    view_count = channel_viewCount_result[2]
+    subscribers = channel_viewCount_result[3]
+    post_date = channel_viewCount_result[4]
+    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')"
+    cur.execute(sql)
+    
 conn.commit()
 cur.close()
 conn.close()
