@@ -4,6 +4,7 @@ CREATE TABLE video (
 title VARCHAR(100) NOT NULL,
 url VARCHAR(250),
 view_count VARCHAR(100),
+raiting VARCHAR(100),
 post_date VARCHAR(100),
 category VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp()
@@ -13,6 +14,6 @@ title VARCHAR(100) NOT NULL,
 url VARCHAR(250),
 view_count VARCHAR(100),
 subscribers VARCHAR(100),
-post_date_ VARCHAR(100),
+post_date VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp()
 );
