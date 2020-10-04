@@ -71,3 +71,4 @@ cur.execute(f"INSERT INTO channel (title, url, view_count, subscribers, post_dat
 conn.commit()
 cur.close()
 conn.close()
+
