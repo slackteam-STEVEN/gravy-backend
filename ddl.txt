@@ -3,8 +3,8 @@ CREATE DATABASE gravy;
 CREATE TABLE video (
 title VARCHAR(100) NOT NULL,
 url VARCHAR(250),
-view_count integer,
-raiting integer ,
+view_count bigint,
+raiting bigint ,
 post_date VARCHAR(100),
 category VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp()
@@ -12,8 +12,8 @@ created_at timestamp DEFAULT clock_timestamp()
 CREATE TABLE channel (
 title VARCHAR(100) NOT NULL,
 url VARCHAR(250),
-view_count integer,
-subscribers integer,
+view_count bigint,
+subscribers bigint,
 post_date VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp()
 );
