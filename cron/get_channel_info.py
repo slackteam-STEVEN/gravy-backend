@@ -11,7 +11,7 @@ from get_channel_id import youtube_id
 
 viewCount, rating = youtube_id()
 
-DEVELOPER_KEY = "AIzaSyCHYoFt8HPBPSFoj2g43oU8c5UsZS9Z7TQ"
+DEVELOPER_KEY = "xxx"
 
 youtube = build("youtube", "v3", developerKey=DEVELOPER_KEY)
 

@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 
-YOUTUBE_API_KEY = 'AIzaSyCHYoFt8HPBPSFoj2g43oU8c5UsZS9Z7TQ'
+YOUTUBE_API_KEY = 'xxx'
 
 def youtube_id():
 
