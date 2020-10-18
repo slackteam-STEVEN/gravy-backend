@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from get_db_channel_data import channel_data
+from get_db_video_data import video_data
 
 app = Flask(__name__)
 
@@ -9,8 +10,18 @@ app = Flask(__name__)
 def top():
     return "test"
 
+@app.route("/video", methods=["POST"])
+def video():
+    end_created_at = request.form["end_created_at"]
+    start_created_at = request.form["start_created_at"]
+    category = request.form["category"]
+    video_data_result = video_data(end_created_at, start_created_at, category)
+
+    return jsonify(video_data_result)
+
+
 @app.route("/channel", methods=["POST"])
-def profile():
+def channel():
     end_created_at = request.form["end_created_at"]
     start_created_at = request.form["start_created_at"]
     channel_data_result = channel_data(end_created_at, start_created_at)
