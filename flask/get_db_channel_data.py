@@ -2,39 +2,41 @@ from flask import Flask
 from flask import request
 import psycopg2
 
-conn = psycopg2.connect("dbname=gravy user=xxx")
-cur = conn.cursor()
-# cur.execute("SELECT * FROM video;")
-## 条件に合った情報を取得してくる形にする
-cur.execute("SELECT * FROM channel WHERE created_at <= '2020/10/19 00:00:00' AND created_at >= '2020/10/01 00:00:00';")
-# cur.fetchone()
-rows = cur.fetchall()
-conn.commit()
-cur.close()
-conn.close()
+def channel_data(end_created_at, start_created_at):
 
-channel = []
+    conn = psycopg2.connect("dbname=gravy user=xxx")
+    cur = conn.cursor()
+    # cur.execute("SELECT * FROM video;")
+    ## 条件に合った情報を取得してくる形にする
+    cur.execute(f"SELECT * FROM channel WHERE created_at <= '{end_created_at}' AND created_at >= '{start_created_at}';")
+    # cur.fetchone()
+    rows = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
 
+    channel = []
 
-for channel_info in range(len(rows)):
-    channel_title = rows[channel_info][0]
-    channel_url = rows[channel_info][1]
-    channel_view_count = rows[channel_info][2]
-    channel_subscribers =  rows[channel_info][3]
-    channel_post_date =  rows[channel_info][4]
-    channel_created_at = rows[channel_info][5]
-    channel_thumbnail_url = rows[channel_info][6]
-    
-    channel.append({"title": channel_title, 
-                    "url": channel_url, 
-                    "view_count": channel_view_count,
-                    "subscribers": channel_subscribers,
-                    "post_date": channel_post_date,
-                    "created_at": channel_created_at,
-                    "thumbnail_url": channel_thumbnail_url})
+    for channel_info in range(len(rows)):
+        channel_title = rows[channel_info][0]
+        channel_url = rows[channel_info][1]
+        channel_view_count = rows[channel_info][2]
+        channel_subscribers =  rows[channel_info][3]
+        channel_post_date =  rows[channel_info][4]
+        channel_created_at = rows[channel_info][5]
+        channel_thumbnail_url = rows[channel_info][6]
+        
+        channel.append({"title": channel_title, 
+                        "url": channel_url, 
+                        "view_count": channel_view_count,
+                        "subscribers": channel_subscribers,
+                        "post_date": channel_post_date,
+                        "created_at": channel_created_at,
+                        "thumbnail_url": channel_thumbnail_url})
+    return channel
 #まずは元になるデータを作成します。
 #内容はヘッドになるデータを入力し中身を作ります
-str_json = channel
+#str_json = channel
 # #JSONを書き込むファイルを開く
 # f = open('output.json', 'w')
 
