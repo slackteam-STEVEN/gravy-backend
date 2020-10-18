@@ -6,7 +6,7 @@ conn = psycopg2.connect("dbname=gravy user=xxx")
 cur = conn.cursor()
 # cur.execute("SELECT * FROM video;")
 ## 条件に合った情報を取得してくる形にする
-cur.execute("SELECT * FROM channel;")
+cur.execute("SELECT * FROM channel WHERE created_at <= '2020/10/19 00:00:00' AND created_at >= '2020/10/01 00:00:00';")
 # cur.fetchone()
 rows = cur.fetchall()
 conn.commit()
