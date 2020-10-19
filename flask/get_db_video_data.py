@@ -23,9 +23,10 @@ def video_data(end_created_at, start_created_at, category):
         video_view_count = rows[video_info][2]
         video_raiting  =  rows[video_info][3]
         video_post_date =  rows[video_info][4]
-        video_created_at = rows[video_info][5]
-        video_thumbnail_url = rows[video_info][6]
-        video_category = rows[video_info][7]
+        video_category = rows[video_info][5]
+        video_created_at = rows[video_info][6]
+        video_thumbnail_url = rows[video_info][7]
+        
         video.append({"title": video_title, 
                         "url": video_url, 
                         "view_count": video_view_count,
