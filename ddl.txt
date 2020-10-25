@@ -8,7 +8,7 @@ raiting bigint ,
 post_date VARCHAR(100),
 category VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp(),
-thumbnail_url varchar(100)
+thumbnail_url varchar(500)
 );
 CREATE TABLE channel (
 title VARCHAR(100) NOT NULL,
@@ -17,5 +17,5 @@ view_count bigint,
 subscribers bigint,
 post_date VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp(),
-thumbnail_url varchar(100)
+thumbnail_url varchar(500)
 );

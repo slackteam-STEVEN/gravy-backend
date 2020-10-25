@@ -28,7 +28,7 @@ for channel_id in viewCount:
     for channel_result in channel_response.get("items", []):
         if channel_result["kind"] == "youtube#channel":
            
-            channel_viewCount.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"]])
+            channel_viewCount.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
 print(channel_viewCount)
 
 for channel_id in rating:
@@ -41,12 +41,12 @@ for channel_id in rating:
     for channel_result in channel_response.get("items", []):
         if channel_result["kind"] == "youtube#channel":
            
-            channel_rating.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"]])
+            channel_rating.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
 print(channel_rating)
 
 
 dbname = "gravy.db"
-conn = psycopg2.connect("dbname=gravy user=tamadashota")
+conn = psycopg2.connect("dbname=gravy user=sadakatafuyuno")
 cur = conn.cursor()
 #ここにfor文
 for channel_viewCount_result in channel_viewCount:
@@ -56,7 +56,8 @@ for channel_viewCount_result in channel_viewCount:
     view_count = channel_viewCount_result[2]
     subscribers = channel_viewCount_result[3]
     post_date = channel_viewCount_result[4]
-    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')"
+    thumbnail_url = channel_viewCount_result[5]
+    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date,thumbnail_url) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}', '{thumbnail_url}')"
     cur.execute(sql)
     
 for channel_rating_result in channel_rating:
@@ -65,7 +66,8 @@ for channel_rating_result in channel_rating:
     view_count = channel_viewCount_result[2]
     subscribers = channel_viewCount_result[3]
     post_date = channel_viewCount_result[4]
-    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}')"
+    thumbnail_url = channel_rating_result[5]
+    sql = f"INSERT INTO channel (title, url, view_count, subscribers, post_date,thumbnail_url) VALUES ('{title}', '{url}', {view_count}, {subscribers}, '{post_date}', '{thumbnail_url}')"
     cur.execute(sql)
     
 conn.commit()
