@@ -19,3 +19,9 @@ post_date VARCHAR(100),
 created_at timestamp DEFAULT clock_timestamp(),
 thumbnail_url varchar(500)
 );
+CREATE ROLE cron WITH LOGIN PASSWORD 'XXXXXXX';
+CREATE ROLE flask WITH LOGIN PASSWORD 'XXXXXXX';
+GRANT SELECT ON video TO flask;
+GRANT SELECT ON channel TO flask;
+GRANT INSERT ON video TO cron;
+GRANT INSERT ON channel TO cron;

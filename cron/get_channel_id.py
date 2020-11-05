@@ -12,7 +12,7 @@ def youtube_id():
     order='viewCount',
     type='channel',
     #表示する数
-    maxResults=3
+    maxResults=10
     ).execute()
 
     search_rating = youtube.search().list(
@@ -21,7 +21,7 @@ def youtube_id():
     order='rating',
     type='channel',
     #表示する数
-    maxResults=3
+    maxResults=10
     ).execute()
     #出力
     #print(search_viewCount['items'])
@@ -32,14 +32,14 @@ def youtube_id():
     for result in search_viewCount['items']:
         #print(result)
         #print(result["id"])
-        #print(result["id"]["channelId"])    
+        #print(result["id"]["channelId"])
         viewCount.append(result["id"]["channelId"])
-    
+
     rating = []
 
     for result in search_rating['items']:
         #print(result)
         #print(result["id"])
-        #print(result["id"]["channelId"])    
+        #print(result["id"]["channelId"])
         rating.append(result["id"]["channelId"])
     return viewCount ,rating
