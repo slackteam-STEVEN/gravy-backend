@@ -36,8 +36,8 @@ for channel_id in viewCount:
 
     for channel_result in channel_response.get("items", []):
         if channel_result["kind"] == "youtube#channel":
-
-            channel_viewCount.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
+            if ("title" in channel_result["snippet"].keys()) and ("publishedAt" in channel_result["snippet"].keys()) and ("thumbnails" in channel_result["snippet"].keys()) and ("viewCount" in channel_result["statistics"].keys()) and ("subscriberCount" in channel_result["statistics"].keys()):
+                channel_viewCount.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
 print(channel_viewCount)
 
 for channel_id in rating:
@@ -49,13 +49,12 @@ for channel_id in rating:
 
     for channel_result in channel_response.get("items", []):
         if channel_result["kind"] == "youtube#channel":
-
-            channel_rating.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
+            if ("title" in channel_result["snippet"].keys()) and ("publishedAt" in channel_result["snippet"].keys()) and ("thumbnails" in channel_result["snippet"].keys()) and ("viewCount" in channel_result["statistics"].keys()) and ("subscriberCount" in channel_result["statistics"].keys()):
+                channel_rating.append([channel_id, channel_result["snippet"]["title"],channel_result["statistics"]["viewCount"],channel_result["statistics"]["subscriberCount"],channel_result["snippet"]["publishedAt"],channel_result["snippet"]["thumbnails"]["medium"]["url"]])
 print(channel_rating)
 
 
-dbname = "DATABASE"
-conn = psycopg2.connect(f"host={HOST} dbname={DB_NAME} user={USER} port={PORT} password={PASSWORD}")
+conn = psycopg2.connect(f"host={HOST} dbname={DATABASE} user={USER} port={PORT} password={PASSWORD}")
 cur = conn.cursor()
 #ここにfor文
 for channel_viewCount_result in channel_viewCount:
