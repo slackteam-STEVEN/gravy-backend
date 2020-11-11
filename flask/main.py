@@ -3,9 +3,9 @@ from flask import request
 from flask import jsonify
 from get_db_channel_data import channel_data
 from get_db_video_data import video_data
-
+from flask_cors import CORS
 app = Flask(__name__)
-
+CORS(app)
 @app.route("/")
 def top():
     return "test"
