@@ -5,14 +5,14 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('gravy.ini')
-KEY = config.get('gravy', 'youtube_api_key')
-HOST = config.get('gravy', 'host')
-DB_NAME = config.get('gravy', 'dbname')
-USER = config.get('gravy', 'user')
-PORT = config.get('gravy', 'port')
-PASSWORD = config.get('gravy', 'password')
+KEY = config.get('YOUTUBE', 'api_key')
+HOST = config.get('DB', 'host')
+DATABASE = config.get('DB', 'database')
+USER = config.get('DB', 'user')
+PORT = config.get('DB', 'port')
+PASSWORD = config.get('DB', 'password')
 
-YOUTUBE_API_KEY = 'KEY'
+YOUTUBE_API_KEY = KEY
 
 VIDEO_CATEGORY_LIST = {
 	1:"Film & Animation",
@@ -80,7 +80,7 @@ for video_category_id in VIDEO_CATEGORY_LIST.keys():  #VIDEO_CATEGORY_LIST.keys(
 
 
             #DB格納
-            conn = psycopg2.connect("host=HOST dbname=DB_NAME user=USER port=PORT password=PASSWORD")
+            conn = psycopg2.connect(f"host={HOST} dbname={DATABASE} user={USER} port={PORT} password={PASSWORD}")
             cur = conn.cursor()
             cur.execute(f"INSERT INTO video (title, url, view_count, raiting, post_date, category, thumbnail_url) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}', '{video_category_id}', '{thumbnail_url}');")
             conn.commit()

@@ -11,16 +11,16 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('gravy.ini')
-KEY = config.get('gravy', 'youtube_api_key')
-HOST = config.get('gravy', 'host')
-DB_NAME = config.get('gravy', 'dbname')
-USER = config.get('gravy', 'user')
-PORT = config.get('gravy', 'port')
-PASSWORD = config.get('gravy', 'password')
+KEY = config.get('YOUTUBE', 'api_key')
+HOST = config.get('DB', 'host')
+DATABASE = config.get('DB', 'database')
+USER = config.get('DB', 'user')
+PORT = config.get('DB', 'port')
+PASSWORD = config.get('DB', 'password')
 
 viewCount, rating = youtube_id()
 
-YOUTUBE_API_KEY = 'KEY'
+YOUTUBE_API_KEY = KEY
 
 youtube = build("youtube", "v3", developerKey=YOUTUBE_API_KEY)
 
@@ -54,8 +54,8 @@ for channel_id in rating:
 print(channel_rating)
 
 
-dbname = "DB_NAME"
-conn = psycopg2.connect("host=HOST dbname=DB_NAME user=USER port=PORT password=PASSWORD")
+dbname = "DATABASE"
+conn = psycopg2.connect(f"host={HOST} dbname={DB_NAME} user={USER} port={PORT} password={PASSWORD}")
 cur = conn.cursor()
 #ここにfor文
 for channel_viewCount_result in channel_viewCount:

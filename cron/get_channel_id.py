@@ -3,9 +3,9 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('gravy.ini')
-KEY = config.get('gravy', 'youtube_api_key')
+KEY = config.get('YOUTUBE', 'api_key')
 
-YOUTUBE_API_KEY = 'KEY'
+YOUTUBE_API_KEY = KEY
 
 def youtube_id():
 
