@@ -7,13 +7,22 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
 from get_channel_id import youtube_id
+import configparser
 
+config = configparser.ConfigParser()
+config.read('gravy.ini')
+KEY = config.get('gravy', 'youtube_api_key')
+HOST = config.get('gravy', 'host')
+DB_NAME = config.get('gravy', 'dbname')
+USER = config.get('gravy', 'user')
+PORT = config.get('gravy', 'port')
+PASSWORD = config.get('gravy', 'password')
 
 viewCount, rating = youtube_id()
 
-DEVELOPER_KEY = "xxx"
+YOUTUBE_API_KEY = 'KEY'
 
-youtube = build("youtube", "v3", developerKey=DEVELOPER_KEY)
+youtube = build("youtube", "v3", developerKey=YOUTUBE_API_KEY)
 
 channel_viewCount = []
 channel_rating = []
@@ -45,8 +54,8 @@ for channel_id in rating:
 print(channel_rating)
 
 
-dbname = "gravy.db"
-conn = psycopg2.connect("host=XXX.XXX.XXX.100 dbname=gravy user=XXXX port=5432 password=XXXXXX")
+dbname = "DB_NAME"
+conn = psycopg2.connect("host=HOST dbname=DB_NAME user=USER port=PORT password=PASSWORD")
 cur = conn.cursor()
 #ここにfor文
 for channel_viewCount_result in channel_viewCount:
@@ -73,4 +82,4 @@ for channel_rating_result in channel_rating:
 conn.commit()
 cur.close()
 conn.close()
-
+print("success")

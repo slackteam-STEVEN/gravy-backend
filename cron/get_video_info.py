@@ -1,8 +1,18 @@
 #from apiclient.discovery import build
 from googleapiclient.discovery import build
 import psycopg2
+import configparser
 
-YOUTUBE_API_KEY = 'XXXXXXXXX'
+config = configparser.ConfigParser()
+config.read('gravy.ini')
+KEY = config.get('gravy', 'youtube_api_key')
+HOST = config.get('gravy', 'host')
+DB_NAME = config.get('gravy', 'dbname')
+USER = config.get('gravy', 'user')
+PORT = config.get('gravy', 'port')
+PASSWORD = config.get('gravy', 'password')
+
+YOUTUBE_API_KEY = 'KEY'
 
 VIDEO_CATEGORY_LIST = {
 	1:"Film & Animation",
@@ -70,10 +80,10 @@ for video_category_id in VIDEO_CATEGORY_LIST.keys():  #VIDEO_CATEGORY_LIST.keys(
 
 
             #DB格納
-            conn = psycopg2.connect("host=XXX.XXX.XXX.100 dbname=gravy user=XXXX port=5432 password=XXXXXX")
+            conn = psycopg2.connect("host=HOST dbname=DB_NAME user=USER port=PORT password=PASSWORD")
             cur = conn.cursor()
             cur.execute(f"INSERT INTO video (title, url, view_count, raiting, post_date, category, thumbnail_url) VALUES ('{title}', '{url}', '{viewCount}', '{likeCount}', '{post_date}', '{video_category_id}', '{thumbnail_url}');")
             conn.commit()
             cur.close()
             conn.close()
-            print("success")
+print("success")

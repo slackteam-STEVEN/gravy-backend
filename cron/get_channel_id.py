@@ -1,6 +1,11 @@
 from googleapiclient.discovery import build
+import configparser
 
-YOUTUBE_API_KEY = 'xxx'
+config = configparser.ConfigParser()
+config.read('gravy.ini')
+KEY = config.get('gravy', 'youtube_api_key')
+
+YOUTUBE_API_KEY = 'KEY'
 
 def youtube_id():
 
