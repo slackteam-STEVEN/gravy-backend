@@ -30,7 +30,7 @@ def video_data(end_created_at, start_created_at, category):
         video.append({"title": video_title, 
                         "url": video_url, 
                         "view_count": video_view_count,
-                        "raiting ": video_raiting ,
+                        "raiting": video_raiting ,
                         "post_date": video_post_date,
                         "created_at": video_created_at,
                         "thumbnail_url": video_thumbnail_url,
